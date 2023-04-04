@@ -53,7 +53,7 @@ To bypass the url string limit you can also do a `POST` request using form_data.
 
 ## Api Examples
 
-### Theory
+### Responses
 
 ```http
 GET http://127.0.0.1:5000/translate?text=Hello%20World&src_lang=eng_Latn&tgt_lang=jpn_Jpan
@@ -85,6 +85,13 @@ fetch("http://127.0.0.1:5000/translate", requestOptions)
   .then((translatedText) => console.log(translatedText))
   .catch((error) => console.log("error", error));
 ```
+
+## Pretrained Models
+
+- https://huggingface.co/facebook/nllb-200-distilled-600M
+- https://huggingface.co/facebook/nllb-200-1.3B
+- https://huggingface.co/facebook/nllb-200-3.3B
+- https://huggingface.co/thefrigidliquidation/nllb-200-distilled-1.3B-bookworm
 
 ## Supported Languages
 
