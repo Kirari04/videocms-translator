@@ -23,8 +23,7 @@ git clone https://huggingface.co/facebook/nllb-200-distilled-600M
 
 ```bash
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-pip3 install transformers
-pip3 install flask
+pip3 install transformers flask pysubs2
 ```
 
 If you want to use your GPU instead of the CPU you should lookup the installation guide for [torch](https://pytorch.org/get-started/locally/)
