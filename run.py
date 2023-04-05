@@ -3,6 +3,7 @@ from flask import Flask, request
 import re
 import pysubs2
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+import time
 
 modelPath = './nllb-200-distilled-600M'
 cache = dict()
@@ -38,7 +39,16 @@ def post_translate_sub():
     f.close()
 
     subtitles = pysubs2.load(path=tmpSubFile)
-    for subtitle in subtitles:
+    max_length = len(subtitles)
+    start_time = time.time()
+    for index, subtitle in enumerate(subtitles):
+        current_time = time.time()
+
+        print("Translating {}/{} {}".format(
+            index+1,
+            max_length,
+            format_duration((current_time-start_time)/(index+1)*max_length),
+        ))
         description_pattern = re.compile("^(\[|\()((?!(\]|\))$).*)(\]|\))$")
         if description_pattern.match(subtitle.text):
             # is audio description
@@ -61,7 +71,6 @@ def post_translate_sub():
 
 
 def translate(text, src_lang, tgt_lang):
-
     text_hash = hash(text)
     cacheKey = "{}-to-{}__{}".format(src_lang, tgt_lang, text_hash)
 
@@ -76,6 +85,11 @@ def translate(text, src_lang, tgt_lang):
     else:
         return cache[cacheKey]
 
+def format_duration(seconds):
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = seconds % 60
+    return "{:.0f}h {:.0f}m {:.2f}s".format(hours, minutes, seconds)
 
 @app.errorhandler(Exception)
 def exception_handler(error):
