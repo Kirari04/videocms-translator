@@ -27,7 +27,7 @@ pip3 install transformers
 pip3 install flask
 ```
 
-If you want to use your GPU instead of the CPU you should lookup the installation guide for `torch`
+If you want to use your GPU instead of the CPU you should lookup the installation guide for [torch](https://pytorch.org/get-started/locally/)
 
 ## Api Endpoint
 
